@@ -37,11 +37,11 @@ function gerenciarCookie(logado: boolean) {
     }
 }
 
-export function AuthProvider(props) {
+export function AuthProvider(props: any) {
     const [carregando, setCarregando] = useState(true);
     const [usuario, setUsuario] = useState<Usuario>(null);
 
-    async function configurarSessao(usuarioFirebase) {
+    async function configurarSessao(usuarioFirebase: any) {
         if (usuarioFirebase?.email) {
             const usuario = await usuarioNormalizado(usuarioFirebase);
             setUsuario(usuario);

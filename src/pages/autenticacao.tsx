@@ -10,7 +10,7 @@ export default function Autenticacao() {
     const [email, setEmail] = useState('');
     const [senha, setSenha] = useState('');
 
-    function exibirErro(mensagem, tempoEmSegundos = 5) {
+    function exibirErro(mensagem: any, tempoEmSegundos = 5) {
         setErro(mensagem);
         setTimeout(() => setErro(null), tempoEmSegundos * 1000);
     }
