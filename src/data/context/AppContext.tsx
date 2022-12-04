@@ -1,7 +1,5 @@
 import { createContext, useEffect, useState } from "react";
 
-type Tema = 'dark' | '';
-
 interface AppContextProps {
     tema?: string,
     alternarTema?: () => void
@@ -9,7 +7,7 @@ interface AppContextProps {
 
 const AppContext = createContext<AppContextProps>({});
 
-export function AppProvider(props) {
+export function AppProvider(props: any) {
     const [tema, setTema] = useState('');
 
     function alternarTema() {
@@ -19,7 +17,7 @@ export function AppProvider(props) {
     }
 
     useEffect(() => {
-        const temaSalvo = localStorage.getItem('tema');
+        const temaSalvo = localStorage.getItem('tema') ?? '';
         setTema(temaSalvo);
     }, []);
 

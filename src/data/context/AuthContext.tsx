@@ -5,12 +5,12 @@ import Cookies from 'js-cookie';
 import { createContext, useEffect, useState } from 'react';
 
 interface AuthContextProps {
-    usuario?: Usuario,
+    usuario?: Usuario | null,
     carregando?: boolean,
-    login: (email: string, senha: string) => Promise<void>,
-    cadastrar: (email: string, senha: string) => Promise<void>,
-    loginGoogle: () => Promise<void>,
-    logout: () => Promise<void>
+    login?: (email: string, senha: string) => Promise<void>,
+    cadastrar?: (email: string, senha: string) => Promise<void>,
+    loginGoogle?: () => Promise<void>,
+    logout?: () => Promise<void>
 }
 
 const AuthContext = createContext<AuthContextProps>({});
@@ -19,17 +19,17 @@ async function usuarioNormalizado(usuarioFirebase: firebase.User): Promise<Usuar
     const token = await usuarioFirebase.getIdToken();
     return {
         uid: usuarioFirebase.uid,
-        nome: usuarioFirebase.displayName,
-        email: usuarioFirebase.email,
+        nome: usuarioFirebase.displayName ?? '',
+        email: usuarioFirebase.email ?? '',
         token,
-        provedor: usuarioFirebase.providerData[0]?.providerId,
-        imagemUrl: usuarioFirebase.photoURL
+        provedor: usuarioFirebase.providerData[0]?.providerId ?? '',
+        imagemUrl: usuarioFirebase.photoURL ?? ''
     }
 }
 
 function gerenciarCookie(logado: boolean) {
     if (logado) {
-        Cookies.set('admin-template-jk-auth', logado, {
+        Cookies.set('admin-template-jk-auth', `${logado}`, {
             expires: 7
         });
     } else {
@@ -39,7 +39,7 @@ function gerenciarCookie(logado: boolean) {
 
 export function AuthProvider(props: any) {
     const [carregando, setCarregando] = useState(true);
-    const [usuario, setUsuario] = useState<Usuario>(null);
+    const [usuario, setUsuario] = useState<Usuario|null>(null);
 
     async function configurarSessao(usuarioFirebase: any) {
         if (usuarioFirebase?.email) {

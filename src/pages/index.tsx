@@ -6,7 +6,7 @@ export default function Home() {
       titulo="Página inicial"
       subtitulo="Estamos construindo um template admin"
     >
-      <h3>Conteudo</h3>
+      <h3>Index</h3>
     </Layout>
   )
 }

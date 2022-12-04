@@ -6,7 +6,7 @@ export default function Ajustes() {
       titulo="Ajustes & Configurações"
       subtitulo="Personalize o sistema por aqui"
     >
-      <h3>Conteudo</h3>
+      <h3>Ajustes</h3>
     </Layout>
   )
 }

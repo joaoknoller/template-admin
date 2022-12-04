@@ -4,7 +4,7 @@ import { IconeAtencao } from "../components/icons";
 import useAuth from "../data/hook/useAuth";
 
 export default function Autenticacao() {
-    const {cadastrar, login, loginGoogle} = useAuth();
+    const { cadastrar, login, loginGoogle } = useAuth();
     const [erro, setErro] = useState(null);
     const [modo, setModo] = useState<'login' | 'cadastro'>('login');
     const [email, setEmail] = useState('');
@@ -18,12 +18,12 @@ export default function Autenticacao() {
     async function submeter() {
         try {
             if (modo === 'login') {
-                await login(email, senha);
+                await login!(email, senha);
             } else {
-                await cadastrar(email, senha);
+                await cadastrar!(email, senha);
             }
         } catch (error) {
-            exibirErro(error?.message ?? 'Erro inesperado');
+            exibirErro((error as Error).message ?? 'Erro inesperado');
         }
     }
 
@@ -55,6 +55,7 @@ export default function Autenticacao() {
                 <AuthInput
                     label="Email"
                     tipo="email"
+                    placeholder="exemplo@email.com"
                     valor={email}
                     valorMudou={setEmail}
                     obrigatorio
@@ -62,6 +63,7 @@ export default function Autenticacao() {
                 <AuthInput
                     label="Senha"
                     tipo="password"
+                    placeholder="******"
                     valor={senha}
                     valorMudou={setSenha}
                     obrigatorio
